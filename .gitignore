@@ -1,0 +1,7 @@
+node_modules
+dist
+dist-single
+shots
+*.log
+prison-empire-jouable.html
+prison-empire-source.zip
