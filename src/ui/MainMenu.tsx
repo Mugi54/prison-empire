@@ -5,8 +5,9 @@ import { listSaves } from '../save/db';
 import { Icon, money } from './common';
 import { ctl, useCtl } from './controller';
 import { SaveSlots } from './SaveSlots';
+import { CloudPanel } from './CloudPanel';
 
-type Screen = 'home' | 'career' | 'scenario' | 'sandbox' | 'load';
+type Screen = 'home' | 'career' | 'scenario' | 'sandbox' | 'load' | 'cloud';
 
 export function MainMenu({ onStart }: { onStart: () => void }) {
   useCtl();
@@ -37,7 +38,7 @@ export function MainMenu({ onStart }: { onStart: () => void }) {
             <button className="mode-card" onClick={() => setScreen('career')}><Icon name="trophy" size={30} /><b>Carrière</b><span>Prenez la direction d'un établissement existant et menez-le au rang d'établissement modèle, mission après mission.</span></button>
             <button className="mode-card" onClick={() => setScreen('scenario')}><Icon name="target" size={30} /><b>Scénarios</b><span>Six situations de crise indépendantes, chacune avec ses objectifs, son délai et ses conditions d'échec.</span></button>
             <button className="mode-card" onClick={() => setScreen('sandbox')}><Icon name="build" size={30} /><b>Bac à sable</b><span>Budget, terrain, difficulté, événements : fixez vos règles et construisez librement, sans objectif imposé.</span></button>
-            <button className="mode-card" disabled={!hasSave} onClick={() => setScreen('load')}><Icon name="save" size={30} /><b>Charger une partie</b><span>{hasSave ? 'Reprenez une partie sauvegardée sur cet appareil.' : 'Aucune sauvegarde pour le moment.'}</span></button>
+            <button className="mode-card" onClick={() => setScreen('load')}><Icon name="save" size={30} /><b>Charger une partie</b><span>{hasSave ? 'Reprenez une partie sauvegardée sur cet appareil ou en ligne.' : 'Aucune sauvegarde locale : connectez-vous pour retrouver vos parties en ligne.'}</span></button>
           </div>
         )}
 
@@ -99,9 +100,9 @@ export function MainMenu({ onStart }: { onStart: () => void }) {
         )}
 
         {screen === 'load' && (
-          <div className="menu-panel narrow">{back}<h2>Charger une partie</h2><SaveSlots mode="load" onLoaded={onStart} /></div>
+          <div className="menu-panel narrow">{back}<h2>Charger une partie</h2><h3 className="subhead">Sur cet appareil</h3><SaveSlots mode="load" onLoaded={onStart} /><h3 className="subhead">En ligne</h3><CloudPanel onLoaded={onStart} /></div>
         )}
-        <footer className="menu-foot">Jeu solo · Sauvegardes locales (IndexedDB) · Jouable hors connexion après le premier chargement</footer>
+        <footer className="menu-foot">Jeu solo · Sauvegardes locales et en ligne · Jouable hors connexion après le premier chargement</footer>
       </div>
       <div className="toasts">{ctl.toasts.map((t) => <div key={t.id} className={'toast ' + t.kind}>{t.m}</div>)}</div>
     </div>

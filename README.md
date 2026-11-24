@@ -3,6 +3,12 @@
 Jeu de gestion pénitentiaire en vue isométrique, jouable dans le navigateur (ordinateur, souris + clavier).
 React + TypeScript + Vite, rendu Canvas 2D, sauvegardes IndexedDB. Aucune ressource externe : tout est dessiné par le code.
 
+## Jouer en ligne
+
+Version en ligne : https://mugi54.github.io/prison-empire/ (déployée automatiquement par GitHub Actions à chaque push sur `main`).
+
+Les **sauvegardes en ligne** passent par Supabase (projet `prison-empire`, table `public.saves` protégée par Row Level Security : chaque joueur ne voit que ses propres sauvegardes). Le compte est facultatif : sans compte, les sauvegardes restent locales (IndexedDB). L'URL et la clé « publishable » Supabase sont publiques par conception ; on peut les remplacer via `VITE_SUPABASE_URL` et `VITE_SUPABASE_PUBLISHABLE_KEY`.
+
 ## Lancer le jeu
 
 ```bash
@@ -45,6 +51,7 @@ src/
     simulation.ts    Boucle (1 tick = 1 minute de jeu), horloge, calendrier
   render/renderer.ts Rendu isométrique (tri en profondeur, personnages, aperçus)
   save/db.ts         IndexedDB : emplacements, sauvegarde auto, migrations de version
+  cloud/cloud.ts     Comptes et sauvegardes en ligne (Supabase)
   ui/                Interface React (contrôleur, carte, panneaux, fiches, menu)
 tests/engine.test.ts Tests des systèmes essentiels
 ```

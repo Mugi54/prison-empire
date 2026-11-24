@@ -17,6 +17,7 @@ import { SecurityPanel } from './panels/Security';
 import { StaffPanel } from './panels/Staff';
 import { StatsPanel } from './panels/Stats';
 import { SaveSlots } from './SaveSlots';
+import { CloudPanel } from './CloudPanel';
 
 const MENU: [string, string, string][] = [
   ['overview', 'Vue générale', 'overview'], ['build', 'Construction', 'build'], ['inmates', 'Détenus', 'inmates'], ['staff', 'Personnel', 'staff'],
@@ -80,6 +81,8 @@ function GameMenu({ onClose, onQuit }: { onClose: () => void; onQuit: () => void
     <Modal title="Menu" onClose={onClose}>
       <p className="muted">La partie est sauvegardée automatiquement à chaque changement de jour et à la fermeture de l'onglet.</p>
       <SaveSlots mode="save" />
+      <h3 className="subhead">Sauvegardes en ligne</h3>
+      <CloudPanel />
       <div className="row end">
         <button onClick={onClose}>Reprendre</button>
         <button className="danger" onClick={async () => { await ctl.save(AUTO_SLOT, true); onQuit(); }}>Sauvegarder et quitter</button>
